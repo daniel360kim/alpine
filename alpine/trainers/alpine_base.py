@@ -312,11 +312,11 @@ class AlpineBaseModule(nn.Module):
         for iteration in iter_pbar:
 
             loss_iteration = 0.0
+            self.optimizer.zero_grad()
             for batch_idx, batch in enumerate(dataloader):
                 input = batch["input"].to(_device)
                 signal = wrap_signal_instance(batch["signal"].to(_device))
 
-                self.optimizer.zero_grad()
                 if closure is None:
                     output_packet = self(
                         input, return_features=return_features
